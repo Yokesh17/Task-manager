@@ -48,7 +48,7 @@ def shutdown_db_client():
 @app.get("/tasks/", response_model=List[dict])
 def get_tasks():
     cursor = app.state.conn.cursor()
-    cursor.execute("show databases")
+    cursor.execute("select * from task_management.task_data;")
     tasks = cursor.fetchall()
     cursor.close()
     return tasks
@@ -59,7 +59,7 @@ def create_task(task: Task):
     cursor = app.state.conn.cursor()
     task_id = int(''.join(filter(str.isdigit, str(uuid.uuid4()))))
     formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
-    cursor.execute(f"INSERT INTO task_data (task_id,task_name, task_description, created_at,due_date, status) VALUES (%s, %s,%s, %s, %s, %s)",
+    cursor.execute(f"INSERT INTO task_management.task_data (task_id,task_name, task_description, created_at,due_date, status) VALUES (%s, %s,%s, %s, %s, %s)",
                    (task_id,task.task_name, task.task_description, formatted_datetime,task.due_date, task.status))
     app.state.conn.commit()
     cursor.close()
