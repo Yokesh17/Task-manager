@@ -63,7 +63,7 @@ def create_task(task: Task):
                    (task_id,task.task_name, task.task_description, formatted_datetime,task.due_date, task.status))
     app.state.conn.commit()
     cursor.close()
-    return {'result' : 'task_id'}
+    return {'result' : task_id}
 
 @app.put('/update_task/{task_id}', response_model=dict)
 def update_task(task_id : int, task:Task):
