@@ -139,6 +139,57 @@ body {
 
 
 
+.new-task-btn {
+    background: #951717;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.new-task-btn:hover {
+    background: #7a1313;
+}
+
+
+
+
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.right-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.delete-btn {
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+    background: #cc0000;
+}
+
+
 
 
 

@@ -48,8 +48,11 @@ function showEditModal(task) {
                     <option value="completed" ${task.status === 'completed' ? 'selected' : ''}>Completed</option>
                 </select>
                 <div class="modal-actions">
-                    <button type="submit" class="save-btn">Save</button>
-                    <button type="button" class="cancel-btn">Cancel</button>
+                    <button type="button" class="delete-btn">Delete</button>
+                    <div class="right-buttons">
+                        <button type="submit" class="save-btn">Save</button>
+                        <button type="button" class="cancel-btn">Cancel</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -59,12 +62,24 @@ function showEditModal(task) {
 
     const form = modal.querySelector('form');
     const cancelBtn = modal.querySelector('.cancel-btn');
+    const deleteBtn = modal.querySelector('.delete-btn');
 
     cancelBtn.addEventListener('click', () => modal.remove());
+
+    deleteBtn.addEventListener('click', async () => {
+        if (confirm('Are you sure you want to delete this task?')) {
+            await fetch(`${API_URL}/delete_task/${task.task_id}`, {
+                method: 'DELETE'
+            });
+            modal.remove();
+            fetchTasks();
+        }
+    });
     
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(form);
+        console.log('Form Data:', formData);
         const updatedTask = {
             task_name: formData.get('task_name'),
             task_description: formData.get('task_description'),
@@ -84,23 +99,25 @@ function showEditModal(task) {
     });
 }
 
-// Add this event listener to the main content area
-document.querySelector('.main-content').addEventListener('dblclick', (e) => {
-    if (e.target.className === 'main-content') {
-        showCreateModal();
-    }
-});
+// Call fetchTasks when page loads
+fetchTasks();
 
-function showCreateModal() {
+
+function showNewTaskModal() {
     const modal = document.createElement('div');
     modal.className = 'modal-overlay';
     modal.innerHTML = `
         <div class="modal-content">
             <form class="edit-form">
-                <h2>Create New Task</h2>
+                <h2>Add New Task</h2>
                 <input type="text" name="task_name" placeholder="Task Name" required>
                 <textarea name="task_description" placeholder="Description"></textarea>
                 <input type="date" name="due_date">
+                <select name="status">
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
                 <div class="modal-actions">
                     <button type="submit" class="save-btn">Create</button>
                     <button type="button" class="cancel-btn">Cancel</button>
@@ -123,7 +140,7 @@ function showCreateModal() {
             task_name: formData.get('task_name'),
             task_description: formData.get('task_description'),
             due_date: formData.get('due_date'),
-            status: 'pending'
+            status: formData.get('status')
         };
 
         await fetch(`${API_URL}/insert_task/`, {
@@ -138,7 +155,7 @@ function showCreateModal() {
     });
 }
 
+// Add this at the end of your script.js
+document.getElementById('newTaskBtn').addEventListener('click', showNewTaskModal);
 
 
-// Call fetchTasks when page loads
-fetchTasks();
