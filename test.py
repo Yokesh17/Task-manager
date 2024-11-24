@@ -1,6 +1,7 @@
 import pymysql
 
 # Database configuration
+#generally its not a good practise to config db config like this, I have done as it is my local d
 db_config = {
     'user': 'root',
     'password': 'yokesh2002',

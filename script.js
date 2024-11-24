@@ -20,8 +20,8 @@ function displayTasks(tasks) {
         taskCard.className = 'task-card';
         taskCard.innerHTML = `
             <div class="task-card-header">
-            <h3>${task.task_name}</h3>
-            <p> ${task.status}</p>
+                <h3>${task.task_name}</h3>
+                <p> ${task.status}</p>
             </div>
             <p>${task.task_description || 'No description'}</p>
             <p>Due Date: ${task.due_date || 'No due date'}</p>

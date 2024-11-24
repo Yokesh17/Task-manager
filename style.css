@@ -159,7 +159,7 @@ body {
 
 
 
-
+/* these below models for positioning of buttons inside editing task pop up page  */
 .modal-actions {
     display: flex;
     justify-content: space-between;
@@ -190,6 +190,58 @@ body {
 }
 
 
+
+
+/* Add these new animation styles for transitions of pop up windows  at the end of style.css */
+
+.modal-overlay {
+    animation: modalFadeIn 0.3s ease forwards;
+}
+
+.modal-content {
+    animation: modalSlideIn 0.3s ease forwards;
+}
+
+.edit-form input,
+.edit-form textarea,
+.edit-form select {
+    animation: formElementsFade 0.4s ease forwards;
+}
+
+.modal-actions {
+    animation: formElementsFade 0.5s ease forwards;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes formElementsFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 
 

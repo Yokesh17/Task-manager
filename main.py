@@ -69,7 +69,7 @@ def create_task(task: Task):
 def update_task(task_id : int, task:Task):
     cursor = app.state.conn.cursor()
     cursor.execute(f"UPDATE task_management.task_data SET task_name=%s, task_description=%s, due_date=%s, status=%s WHERE task_id=%s",
-                   (task.task_name, task.task_description, task.due_date, task.status,task_id))
+                   (task.task_name, task.task_description, task.due_date, task.status, task_id))
     app.state.conn.commit()
     cursor.close()
     return {'result' : f'updated {task_id}'}
@@ -99,7 +99,7 @@ async def test_db():
 
 if __name__ == "__main__":
     # Start the application
-    uvicorn.run(app, host="127.0.0.12", port=8000, log_level="info")
+    uvicorn.run(app, host="127.0.0.1", port=8000, log_level="info")
 
 
 
